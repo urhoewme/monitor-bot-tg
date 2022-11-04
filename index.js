@@ -1,12 +1,20 @@
 const TelegramApi = require('node-telegram-bot-api')
-
+const sequelize = require('./db.js')
 const token = '5655757734:AAGkgU16KR7MS1QEnouEWKCyr2ZHt9JQnQA'
 
 const bot = new TelegramApi(token, {polling: true})
 
 
 
-const start = () => {
+const start = async () => {
+
+	try{
+		await sequelize.authenticate()
+		await sequelize.sync()
+	} catch(e) {
+		console.log('Error',e);
+	}
+
 	bot.setMyCommands([
 	{command: '/start', description: 'Hello World'},
 	{command: '/info', description: 'About this bot'},
