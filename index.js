@@ -5,17 +5,17 @@ const sequelize = require('./db.js')
 const UserModel = require('./models.js')
 const bot = new TelegramApi(token, {polling: true})
 
-
-
-const start = async () => {
-
-	try{
+try{
 		await sequelize.authenticate();
 		console.log('Connection established');
 		await sequelize.sync();
 	} catch(e) {
 		console.log('Unnable to connect to the database:',e);
 	}
+
+const start = async () => {
+
+	
 
 	bot.setMyCommands([
 	{command: '/start', description: 'Hello World'},
